@@ -102,9 +102,8 @@ with col_right:
                 stats[name]["消息数"] += 1
                 stats[name]["总字数"] += len(content)
                 
-            # 提取前 N 名发言者 (单聊取前2，群聊取前5)
-            top_n = 2 if "单聊" in chat_mode else 5
-            sorted_users = sorted(stats.items(), key=lambda x: x[1]["消息数"], reverse=True)[:top_n]
+            # 提取所有发言者，不再做人数限制 (单聊和群聊都显示所有人，如果人太多可以截取前 20 避免图表太挤)
+            sorted_users = sorted(stats.items(), key=lambda x: x[1]["消息数"], reverse=True)[:20]
             
             if len(sorted_users) > 0:
                 # 准备 DataFrame
